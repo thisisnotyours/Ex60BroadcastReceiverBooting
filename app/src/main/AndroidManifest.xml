@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.suek.ex60broadcastreceiverbooting">
+
+    <!--부팅완료방송을 듣는 퍼미션-->
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+
+
+        <activity android:name=".MainActivity">    <!--액티비티 1-->
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+
+        <!--액티비티 2-->
+        <!--N (누가버젼)부터는 부팅완료 퍼미션을 리시버의 속성으로도 지정해야함-->
+        <!--Oreo 버전부터는 앱을 설치하고 적어도 한번이상 사용자가 직접 앱런처(앱목록)화면에서 앱을 터치하여 실행한 것만 다음부터 부팅 리시버됨 -->
+        <receiver android:name=".BootingReceiver" android:permission="android.permission.RECEIVE_BOOT_COMPLETED">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+                <!--일부폰에서 다른액션으로 방송됨-->
+                <action android:name="android.intent.action.LOCKED_BOOT_COMPLETED"/>
+            </intent-filter>
+        </receiver>
+
+
+    </application>
+
+</manifest>
